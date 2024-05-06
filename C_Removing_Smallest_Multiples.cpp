@@ -24,7 +24,7 @@ void solve(){
     int n; string s;
     cin >> n >> s;
 
-    int ans = 0;
+    ll ans = 0;
     string marked(n, '1');
     // sieve of erast..
     for (int i=0; i<n; i++){
