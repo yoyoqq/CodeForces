@@ -16,37 +16,53 @@ template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cerr
 #define all(x) (x).begin(), (x).end()   // sort(all(a))
 
 using ll = long long;
+ll MOD = 1e9 + 7;
 typedef long double ld;
 const char nl = '\n';
-const int MAXN = 2000;
-int a[MAXN][MAXN];
+int A[200010];
+
+ll dfs(int k, int pos, vector<int>& p, vector<int>& a){
+    k++;
+    ll maximum = 0;
+    unordered_set<int> seen;    // seen indexes
+    ll cur_pos = pos;
+    ll cur_count = 0;
+    while (k--){
+        // base case
+        if (seen.find(cur_pos) != seen.end()) break;
+        seen.insert(cur_pos);
+        // get all
+        maximum = max(maximum, cur_count + 1ll*k*a[cur_pos]);   // 1ll force the mult to avoid integer overflwo 
+        // go next
+        cur_count += a[cur_pos];
+        cur_pos = p[cur_pos];
+    }
+    return maximum;
+}
 
 void solve(){
-    int n, m, sum = 0;
-    cin >> n >> m;
-    string s; 
-    // count number of ones 
-    // get pos of the zeroes and ones 
+    int n, k, pb, ps; cin >> n >> k >> pb >> ps;
+    vector<int> p(n), a(n);
     for (int i=0; i<n; i++){
-        cin >> s;
-        for (int j=0; j<m; j++){
-            a[i][j] = s[j] - '0';
-            sum += a[i][j];
-        }
-    
-    // 
-    int zeroes = INT_MAX;
-    // iterate entire grid - last pos, check the square 
-    for (int i=0; i<n-1; i++){
-        for (int j=0; j<m-1; j++){
-            int count = a[i][j] + a[i+1][j] + a[i][j+1] + a[i+1][j+1];
-            if (count == 0) continue;
-            // zeroes = min(zeroes, max(1, count - 1));
-            zeroes = min(zeroes, max(1, count - 1));
-        }
+        cin >> p[i];
+        p[i]--;
     }
-    if (sum == 0) cout << "0\n";
-    else cout << 1 + sum - zeroes << nl;
+    for(int& x : a) cin >> x;
+    // 
+    // dbg_out(p, a);
+    ll bodya = dfs(k, pb-1, p, a);
+    // dbg_out("----------------");
+    ll sasha = dfs(k, ps-1, p, a);
+    // dbg_out("----------------");
+
+    // dbg_out(bodya, sasha);
+    // output
+    if (bodya > sasha)
+        cout << "Bodya\n"; 
+    else if (bodya < sasha)
+        cout << "Sasha\n"; 
+    else
+        cout << "Draw\n";
 }
 
 int main(){
