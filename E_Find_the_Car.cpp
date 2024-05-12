@@ -37,7 +37,7 @@ void solve(){
         }
         if (a[r] == c) cout << b[r] << " ";
         else {
-            // prevtime + cur pos * mins / dist     (how many MINS it needs from that pos)
+            // prevtime + (cur dist) * cur time / dist     (how many MINS it needs from that pos)
             ll ans = b[r] + (c - a[r]) * (b[r+1] - b[r]) / (a[r+1] - a[r]);  
             cout << ans << " ";
         }
