@@ -21,15 +21,27 @@ const char nl = '\n';
 int A[200010];
 
 void solve(){
-    int n; cin >> n;
-    vector<int> a(n);
-    for (auto& x : a) cin >> x;
-    // find the max val between 2-3 subarray
-    vector<int> ans;
-    for (int i=0; i<n-1; i++) ans.push_back(min(a[i], a[i+1]));
-    for (int i=0; i<n-2; i++) ans.push_back(min(a[i], a[i+2]));
-    cout << *max_element(ans.begin(), ans.end()) << nl;
-
+    int n, m; cin >> n >> m;
+    vector<vector<int>> a(n, vector<int>(m, 0));
+    for (int i=0; i<n; i++){
+        string s; cin >> s;
+        for (int j=0; j<s.size(); j++){
+            a[i][j] = s[j] - '0';
+        }
+    }
+    // dbg_out(a);
+    
+    // there are intersections if in a cube of 2x2, the sum of the values is 3 
+    for (int i=0; i<n-1; i++){
+        for (int j=0; j<m-1; j++){
+            int sm = a[i][j] + a[i+1][j+1] + a[i+1][j] + a[i][j+1];
+            if (sm == 3){
+                cout << "no" << nl;
+                return;
+            }
+        }
+    }
+    cout << "yes" << nl;
 }
 
 int main(){
