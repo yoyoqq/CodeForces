@@ -29,7 +29,6 @@ void solve(){
         ans = (ans * n) % mod;
         
     cout << ans << nl;
-
 }
 
 int main(){
