@@ -22,19 +22,29 @@ int A[200010];
 
 void solve(){
     int n; cin >> n; 
-    priority_queue<int, vector<int>, greater<int>> pq; 
-    int x = 0;
-    for(int i=0; i<n; i++){
-        cin >> x;
-        pq.push(x);
+    int a[n];
+    for (int i=0; i<n; i++) cin >> a[i];
+    sort(a, a + n);
+    int x = a[0];
+    for (int i=1; i<n; i++){
+        x = (x + a[i]) / 2;
     }
-    // 
-    while (pq.size() != 1){
-        int x = pq.top(); pq.pop();
-        int y = pq.top(); pq.pop();
-        pq.push((x + y) / 2);
-    }
-    cout << pq.top() << nl;
+    cout << x << nl;
+    
+    
+    // priority_queue<int, vector<int>, greater<int>> pq; 
+    // int x = 0;
+    // for(int i=0; i<n; i++){
+    //     cin >> x;
+    //     pq.push(x);
+    // }
+    // // 
+    // while (pq.size() != 1){
+    //     int x = pq.top(); pq.pop();
+    //     int y = pq.top(); pq.pop();
+    //     pq.push((x + y) / 2);
+    // }
+    // cout << pq.top() << nl;
 }
 
 int main(){
