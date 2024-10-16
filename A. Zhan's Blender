@@ -1,0 +1,27 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+#define nl '\n'
+
+void solve(){
+    int n, x, y; cin >> n >> x >> y;
+    // n of fruits, n of f blender ps, n of fruits can put in 
+
+    // put the max amount on the blender 
+    int min_in = min(x, y);
+    cout << (n / min_in) + (n % min_in != 0) << nl;
+    
+}
+
+int main(){
+    ios::sync_with_stdio(0); cin.tie(0);
+    #ifndef ONLINE_JUDGE
+        freopen("input.txt", "r", stdin);
+        freopen("output.txt", "w", stdout);
+    #endif
+    int test; cin >> test;
+    while(test--) solve();
+    return 0;
+}
+
