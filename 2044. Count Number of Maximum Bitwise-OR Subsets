@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int countMaxOrSubsets(vector<int>& nums) {
+        int mx = 0;
+        for (int& n : nums) mx |= n;
+        // unordered_map<pair<int, int>, int> m;
+        vector<vector<int>> m(nums.size(), vector<int>(mx + 1, -1));
+        return count_subsets(nums, mx, m, 0, 0);
+    }
+
+private:
+    int count_subsets(vector<int>& nums, int& mx, vector<vector<int>>& m, int i, int cur){   // nums, max or, cur idx, cur or 
+        // base case, count if + 1 or 0
+        if (i >= nums.size()){
+            return (mx == cur) ? 1 : 0;
+        }  
+        // if (m.find({i, cur}) != m.end()) return m[{i, cur}];
+        if (m[i][cur] != -1) return m[i][cur];
+        // children
+        int res = 0;
+        res += count_subsets(nums, mx, m, i+1, cur);   // skip
+        res += count_subsets(nums, mx, m, i+1, cur | nums[i]);   // count
+        // return 
+        // m[{i, cur}] =  res;
+        m[i][cur] = res;
+        return res;
+    }
+};
