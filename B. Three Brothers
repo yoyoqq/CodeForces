@@ -1,0 +1,37 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+#define nl '\n'
+
+void solve(){
+    int a, b; cin >> a >> b;
+    cout << 6 - a - b << nl;
+    // vector<int> a(2);
+    // cin >> a[0];
+    // cin >> a[1];
+    // // cout << a[0] << " " << a[1] << nl;
+    // for (int i=1; i<4; i++){
+    //     bool found = true;
+    //     for (int j=0; j<a.size(); j++){
+    //         if (a[j] == i) found = false;
+    //     }
+    //     if (found){
+    //         cout << i << nl;
+    //         return;
+    //     }
+    // } 
+}
+
+int main(){
+    ios::sync_with_stdio(0); cin.tie(0);
+    #ifndef ONLINE_JUDGE
+        freopen("input.txt", "r", stdin);
+        freopen("output.txt", "w", stdout);
+    #endif
+    // int test; cin >> test;
+    // while(test--) solve();
+    solve();
+    return 0;
+}
+
