@@ -1,0 +1,41 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+#define nl endl 
+
+void solve(){
+    // intersect, look, inside 
+    int l, r, L, R; cin >> l >> r >> L >> R;
+
+    // bool segment = max(l, L) > min(r, R);
+    // if (segment){
+        // cout << 1 << endl;
+        // return;
+    // }
+    // intersect
+    int count = min(r, R) - max(l, L) + 1;
+    // it is not intersecting, both are apart 
+    if (count <= 0){
+        cout << 1 << nl;
+        return;
+    }
+    // left/right segment, greater than closing 
+    // if (r > L || R > l) count++;
+    // if (l > R || L > r) count++;
+    int ans = min(r, R) - max(l, L);
+    ans += (r != R);
+    ans += (l != L);
+    cout << ans << endl;
+}
+
+int main(){
+    ios::sync_with_stdio(0); cin.tie(0);
+    #ifndef ONLINE_JUDGE
+        freopen("input.txt", "r", stdin);
+        freopen("output.txt", "w", stdout);
+    #endif
+    int test; cin >> test;
+    while(test--) solve();
+    return 0;
+}
