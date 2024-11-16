@@ -1,3 +1,5 @@
+// using brute force, two pointers O(n * k)
+
 class Solution {
 public:
     vector<int> resultsArray(vector<int>& nums, int k) {
@@ -20,5 +22,38 @@ public:
             // cout << endl;
         }
         return powers;
+    }
+
+};
+
+
+
+
+// Find the Power of K-Size Subarrays I
+
+
+// USING counter o(n)
+
+class Solution {
+public:
+    vector<int> resultsArray(vector<int>& nums, int k) {
+        if (k == 1) return nums;
+        int n = nums.size();
+        int count = 1;
+        vector<int> a(n-k+1, -1);   // output 
+        for (int i=0; i<n-1; i++){  // compare all the nums + 1 
+            // update counter
+            if (nums[i] + 1 == nums[i+1]){
+                count++;
+            }else{
+                count = 1;
+            }
+            // update ans for the prevous -k with max 
+            if (count >= k){
+                a[i-k+2] =  nums[i+1];
+            }
+            // cout << count << " ";
+        }
+        return a;
     }
 };
