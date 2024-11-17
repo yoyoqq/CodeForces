@@ -116,3 +116,34 @@ public:
         // return (mn_len != INT_MAX ? mn_len : -1);
     }
 };
+
+class Solution {
+public:
+    int shortestSubarray(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<long long> pref(n + 1, 0); // Prefix sum array
+        for (int i = 1; i <= n; i++) {
+            pref[i] = pref[i - 1] + nums[i - 1];
+        }
+
+        deque<int> cand; // Deque to store candidate indices
+        int shortest = INT_MAX;
+
+        for (int i = 0; i <= n; i++) {
+            // Check if we can find a valid subarray
+            while (!cand.empty() && pref[i] - pref[cand.front()] >= k) {
+                shortest = min(shortest, i - cand.front());
+                cand.pop_front();
+            }
+
+            // Maintain a decreasing order of prefix sums in the deque
+            while (!cand.empty() && pref[i] <= pref[cand.back()]) {
+                cand.pop_back();
+            }
+
+            cand.push_back(i);
+        }
+
+        return shortest == INT_MAX ? -1 : shortest;
+    }
+};
