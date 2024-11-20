@@ -33,7 +33,7 @@ bool good(map<char, int>& m, int k){
     for (auto& [_, v] : m){
         if (v < k){
             return false;
-        }
+        
     }
     return true;
 }
