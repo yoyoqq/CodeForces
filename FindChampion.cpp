@@ -26,3 +26,23 @@ public:
         return champion;
     }
 };
+
+
+class Solution {
+public:
+    int findChampion(int n, vector<vector<int>>& edges) {
+        // use count 
+        vector<int> a(n); 
+        for (auto& edge : edges){
+            a[edge[1]]++;
+        }
+        int champ = -1; 
+        for (int i=0; i<n; i++){
+            if (a[i] == 0){
+                if (champ != -1) return -1;
+                champ = i;
+            }
+        }
+        return champ;
+    }
+};
