@@ -22,37 +22,20 @@ int A[200010];
 
 void solve(){
     int n; cin >> n;
-    string s; cin >> s;
-    int zero = 0;
-    int one = 0;
-    for (int i=0; i<n; i++){
-        if (s[i] == '0') zero++;
+    vector<int> a(n);
+    for (int& x : a) cin >> x;
+    // increasing decreasing 
+    int idx = n-2; 
+    for (; idx>=0; idx--){
+        if (a[idx] >= a[idx+1]) continue;
         else break;
     }
-    for (int i=n-1; i>=0; i--){
-        if (s[i] == '1') one++;
+    for (; idx>=0; idx--){
+        if (a[idx] <= a[idx+1]) continue;
         else break;
     }
-    int mid = false;
-    for (int i=1; i<n; i++){
-        if (s[i-1] == '1' && s[i] == '0'){
-            mid = true;
-        } 
-    }
-    // 4 cases dpeending on count 1/0
-    if (n == 1){
-        cout << s << endl;
-    }else{
-        for (int i=0; i<zero; i++){
-            cout << '0';
-        }
-        if (mid)
-            cout << '0';
-        for (int i=0; i<one; i++){
-            cout << '1';
-        }
-        cout << endl;
-    }
+    cout << idx + 1 << endl;
+    
 }
 
 int main(){
