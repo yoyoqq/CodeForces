@@ -20,24 +20,63 @@ typedef long double ld;
 const char nl = '\n';
 int A[200010];
 
-const int MAX = 200007;
-int a[MAX], psum[MAX];
-
-void solve(){
-    int l, r;
-    cin >> l >> r;
-    // prefix + 3x used at first 
-    cout << psum[r] - psum[l-1] + a[l] << endl;
-    
+ll gcd(ll a, ll b)
+{
+    if (b==0)return a;
+    return gcd(b, a % b);   
 }
 
-int f(int num){
-    int count = 0;
-    while (num){
-        count++;
-        num /= 3;
+
+void solve(){
+    int n; cin >> n;
+    vector<int> a(n); for(int& x : a) cin >> x;
+    // 
+    bool even = false, odd = false; 
+    int mx = 0;
+    for (int i=0; i<n; i++){
+        if (a[i]% 2 == 0) even = true;
+        if (a[i]% 2 == 1) odd = true;
+        mx = max(mx, a[i]);
+    } 
+    // if odd and even alternate, impossible 
+    if (odd && even){
+        cout << -1 << endl;
+        return;
     }
-    return count;
+
+
+    vector<int> op;
+    for (int i=29; i>=0; i--){
+        op.push_back(1<<i);
+    }
+    // dbg_out(op);
+    if (even) op.push_back(1);
+    cout << op.size() << endl;
+    for (int i=0; i<op.size(); i++){
+        cout << op[i] << " ";
+    }
+    cout << endl;
+    
+    
+    // reduce from 2**30
+    // vector<bool> arr(31, 0);
+    // int count = 0;
+
+    // for (int j=30; j>=0; j--){
+        
+    //     if (mx >= (1<<j)){
+    //         count++;
+    //         arr[j]= true;
+    //     }
+    // }
+
+    // cout << count << endl;
+    // for (int i=30; i>=0; i--){
+    //     if (arr[i] == 1){
+    //         cout << (1 << i) << " ";
+    //     }
+    // }
+    // cout << endl;
 }
 
 int main(){
@@ -46,14 +85,6 @@ int main(){
         freopen("input.txt", "r", stdin);
         freopen("output.txt", "w", stdout);
     #endif
-    
-    // save in prefix to return faster 
-    psum[0] = 0;
-    for (int i=1; i<MAX; i++){
-        a[i] = f(i);
-        psum[i] = psum[i-1] + a[i];
-    }
-    
     int test = 1e9; cin >> test;
     while (test--) solve();
     return 0;
