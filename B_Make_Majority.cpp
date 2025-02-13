@@ -21,8 +21,32 @@ const char nl = '\n';
 int A[200010];
 
 void solve(){
-       
+    int n; cin >> n;
+    string s; cin >> s;
+
+    int one = 0;
+    int zero = 0;
+    for (int i=0; i<n; i++){
+        if (s[i] == '1') one++;
+        else if (!i || s[i] != s[i-1]) zero++;  // at first, if zero, || found zero 
+    }
+    dbg_out(s, one, zero);
+    cout << (one > zero ? "YES" : "NO") << endl;
     
+    
+    // // bool poss = false;
+    // int ones = 0;
+    
+    // for (int i=0; i<s.size(); i++){
+    //     if (s[i] == '1'){
+    //         ones++;
+    //     }
+    // }
+    // if (s[0] == '1' && s[n-1] == '1' || ones > n-ones){
+    //     cout << "YES" << endl;
+    // }else{
+    //     cout << "NO" << endl;
+    // }
 }
 
 int main(){
