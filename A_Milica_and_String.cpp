@@ -11,42 +11,37 @@ using ll = long long;
 
 
 void solve(){
-    int n; cin >> n; 
-    vector<int> a(n+1);
-    // 
-    vector<int> pref(n+1, 0);     // pref[i+1] - pref[j]
-    for (int i=1; i<=n; i++){
-        cin >> a[i];
-        pref[i] = pref[i-1] + a[i];
+    int n, k; cin >> n >> k;
+    string s; cin >> s;
+
+    int b_count = 0;
+    for (char c : s){
+        if (c == 'B') b_count++;
     }
-    // dbg_out(a);
-    // dbg_out(pref);
-
-    int left = 1;
-    int right = n; 
-    int ans = 0;
-    while (left <= right){
-        int mid = left + (right - left) / 2;
-        // ask query, is it from left to mid 
-        // ? k x1 x2 x3 .. xn 
-        cout << "? " << (mid - left + 1) << " ";
-        for (int i=left; i<=mid; i++){
-            cout << i << " ";
-        }cout << endl;
-        // get input 
-        int returned_sum = 0;
-        cin >> returned_sum;
-        int actual_sum = pref[mid] - pref[left-1]; 
-        // if the sum matches its on the right 
-
-        if (returned_sum == actual_sum){
-            left = mid + 1;
-        }else{
-            ans = mid;  // because in the last iteration is diff, so it will need to be updated when != 
-            right = mid - 1;
+    // 
+    if (b_count == k){
+        cout << 0 << endl;
+    }
+    // add 
+    else if (b_count < k){
+        for (int i=0; i<n; i++){
+            if (s[i] == 'A') b_count++;
+            if (b_count == k){
+                cout << 1 << endl << (i + 1) << " " << 'B' << endl;
+                return;
+            }
         }
     }
-    cout << "! " << ans << endl;
+    // delete
+    else{
+        for (int i=0; i<n; i++){
+            if (s[i] == 'B') b_count--;
+            if (b_count == k){
+                cout << 1 << endl << (i + 1) << " " << 'A' << endl;
+                return;
+            }
+        }
+    }
 }
 
 int main(){
