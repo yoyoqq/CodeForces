@@ -1,3 +1,6 @@
+#include <vector>
+#include <iostream>
+
 class UnionFind{
     public:
         vector<int> parent;
