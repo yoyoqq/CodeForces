@@ -81,4 +81,4 @@ int main(){
     int test = 0; cin >> test;
     while (test--) solve();
     return 0;
-}
+}120. Triangle
