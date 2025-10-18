@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int maxDistinctElements(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+        int n = nums.size(), mn = INT_MIN, count = 0;
+        for (int num : nums){
+            // always use the min 
+            int cur = num-k; 
+            // 1. use MIN
+            if (mn <= cur){
+                mn = cur + 1;
+                count++;
+            }
+            // 2. check if within the bounds then use the min 
+            else if (num-k <= mn && mn <= num+k){
+                count++;
+                mn++;
+            }
+        }
+        return count;
+    }
+};
