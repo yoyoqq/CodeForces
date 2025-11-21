@@ -29,3 +29,28 @@ public:
         return seen.size();
     }
 };
+
+
+class Solution {
+public:
+    int countPalindromicSubsequence(string s) {
+        map<char, int> left, right;
+        int n = s.size();
+        for (int i=0; i<n; i++){
+            if (left.find(s[i]) == left.end()) left[s[i]] = i;
+            right[s[i]] = i;
+        }
+        int ans = 0;
+        // check for all from a-z 
+        for (char c='a'; c<='z'; c++){
+            // must have +3 size 
+            if (left[c] >= right[c]) continue;
+            vector<bool> seen(26, false);
+            for (int i=left[c]+1; i<right[c]; i++){
+                seen[s[i]-'a'] = true;
+            }
+            ans += count(seen.begin(), seen.end(), true);
+        }
+        return ans;
+    }
+};
