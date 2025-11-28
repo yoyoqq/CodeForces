@@ -1,0 +1,78 @@
+#define ll long long
+
+class Solution {
+public:
+
+    int const MOD = 1e9 + 7;
+
+    vector<int> sumAndMultiply(string s, vector<vector<int>>& queries) {
+        int n = s.size();
+        vector<int> idx(n+1, 0);    // prefix count, count of numbers != 0
+        vector<ll> val(n+1, 0);     // prefix conc (mod)
+        vector<ll> tot(n+1, 0);     // prefix sum
+        vector<ll> pow10(n+1, 1);   // powerrs of 10 
+
+        // 1. compute powers of 10 for the size of the int 
+        for (int i=1; i<=n; i++){
+            pow10[i] = (pow10[i-1] * 10) % MOD;
+        }
+ 
+        // 2. compute prefix val/tot 
+        int c = 0;
+        for (int i=0; i<n; i++){
+            int d = s[i] - '0';
+            if (d != 0){
+                c++;
+                val[c] = (val[c-1] * 10 + d) % MOD;
+                tot[c] = (tot[c-1] + d) % MOD;
+            }
+            idx[i+1] = c;
+        }
+
+        // 3. compute the queries 
+        vector<int> ans;
+        ans.reserve(queries.size());
+
+        // Process each query
+        for (auto& q : queries) {
+            int l = q[0], r = q[1];
+            int a = idx[l];
+            int b = idx[r + 1];
+            if (a == b) {
+                ans.push_back(0);
+                continue;
+            }
+            int len = b - a;
+            long long num = (val[b] - val[a] * pow10[len]) % MOD;
+            if (num < 0) num += MOD;    // mod with negative element is negative 
+            long long sumDigits = tot[b] - tot[a];
+            ans.push_back((num * sumDigits) % MOD);
+        }
+
+        return ans;
+    }
+
+
+    // vector<int> sumAndMultiply(string s, vector<vector<int>>& queries) {
+    //     int cur_sum = 0;
+    //     int cur_num = 0;
+    //     int n = s.size();
+    //     vector<int> pref(n+1, 0);
+    //     vector<int> digits(n+1, 0);
+    //     vector<int> ans(n, 0);
+    //     for (int i=0; i<n; i++){
+    //         cur_sum += (s[i]-'0') % MOD;
+    //         pref[i+1] = cur_sum;
+    //         if (s[i] - '0' != 0)
+    //             cur_num = (cur_num * 10 + s[i] - '0') % MOD;
+    //         digits[i+1] = cur_num;
+    //     }
+    //     for (int i=0; i<queries.size(); i++){
+    //         auto x = queries[i][0], y = queries[i][1];
+    //         int sm_digits = pref[y+1]-pref[x];
+    //         // prefix 
+    //         int pfx = 
+    //     }
+    //     return ans;
+    // }
+};
