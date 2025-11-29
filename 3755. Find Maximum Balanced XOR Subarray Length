@@ -1,0 +1,59 @@
+class Solution {
+public:
+
+    void counter(int& num, int& even, int& odd){
+        if (num % 2 == 0) even++;
+        else odd++;
+    }
+
+    int maxBalancedSubarray(vector<int>& nums) {
+        map<pair<int, int>, int> mp;
+        int pxor = 0, even = 0, odd = 0;
+        int ans = 0;
+        for (int i=0; i<nums.size(); i++){
+            int num = nums[i];
+            pxor ^= num;
+            counter(num, even, odd);
+            if (mp.find({pxor, even-odd}) == mp.end()) mp[{pxor, even-odd}] = i;
+            if (mp.find({pxor, even-odd}) != mp.end()){
+                ans = max(ans, i-mp[{pxor, even-odd}]);
+            }
+            if (pxor == 0 && even-odd == 0) ans = max(ans, i+1);
+        }
+        return ans;
+    }
+};
+
+// class Solution {
+// public:
+//     void counter(int& num, int& even, int& odd){
+//         if (num % 2 == 0) even++;
+//         else odd++;
+//     }
+
+//     int maxBalancedSubarray(vector<int>& nums) {
+//         // 1. count number of even/odd for early break out 
+//         int n = nums.size(), even = 0, odd = 0;
+//         for (int& num : nums){
+//             counter(num, even, odd);
+//         }
+//         // 2. brute force
+//         int ans = 0;
+//         for (int i=0; i<n; i++){
+//             int teven = 0, todd = 0;
+//             int cur = 0;
+//             for (int j=n-1; j>=i; j--){
+//                 cur ^= nums[j];
+//                 counter(nums[j], teven, todd);
+//                 if (teven == todd && cur == 0){
+//                     ans = max(ans, j-i+1);
+//                     break;  // found the largest of this substr 
+//                 } 
+//                 // optimize, if we dont have more even/odd
+//                 // if () 
+
+//             }
+//         }        
+//         return ans;
+//     }
+// };
