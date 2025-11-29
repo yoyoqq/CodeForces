@@ -13,3 +13,11 @@ class Solution:
     def minOperations(self, nums: List[int], k: int) -> int:
         return sum(nums) % k 
          
+
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int k) {
+        int sm = accumulate(nums.begin(), nums.end(), 0);
+        return sm % k;
+    }
+};
