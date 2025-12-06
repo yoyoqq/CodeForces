@@ -38,8 +38,11 @@ def digitSum(idx: int, sm: int, tight: bool, digit: list[int]):
         
         res += digitSum(idx-1, sm+i, newTight, digit)
         
-        if not tight:
-            dp[idx][sm][tight] = res
+    # memo 
+    # tight == 0 
+    if not tight:
+        dp[idx][sm][tight] = res
+        
     return res
 
 def rangeDigitSum(a, b):
