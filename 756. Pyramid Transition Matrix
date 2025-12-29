@@ -1,0 +1,39 @@
+class Solution:
+    def pyramidTransition(self, bottom: str, allowed: List[str]) -> bool:
+        # map from top to bot   
+        mp = defaultdict(list)
+        for a, b, c in allowed:
+            mp[(a, b)].append(c)
+
+        # recursion 
+        def dp(bottom, mp):
+            # base case
+            if len(bottom) == 1:
+                return True
+
+            # get by pairs
+            next_row = []
+            for i in range(len(bottom)-1):
+                pair = (bottom[i], bottom[i+1])
+                if pair not in mp:
+                    return False
+                next_row.append(mp[pair])
+
+            # process recursively if possible to form with allowed combinations 
+            def generate_next_rows(poss_next, idx):
+                # go to next level if we have finished processing this one 
+                if idx == len(next_row):
+                    return dp("".join(poss_next), mp)
+
+                # try all the combinations of the (a, b) 
+                for char in next_row[idx]:
+                    poss_next.append(char)
+                    if generate_next_rows(poss_next, idx + 1):
+                        return True 
+                    poss_next.pop() # backtrack pop out 
+                return False
+            
+            return generate_next_rows([], 0)
+
+        return dp(bottom, mp)
+        
